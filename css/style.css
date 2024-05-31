@@ -7,8 +7,8 @@
 }
 
 img {
-    height: 200px;
-    width: 200px;
+    height: 100px;
+    width: 100px;
 }
 
 #basicaap {
@@ -35,11 +35,39 @@ body {
     justify-content: center;
 }
 
+h1 {
+    font-size: 50px;
+}
+
 h2 {
     text-align: center;
+    font-weight: lighter;
 }
 
 p {
     font-size: 20px;
     font-weight: bold;
+}
+
+#hongerbar, #verdachtbar {
+width: 100%;
+max-width: 600px;
+height: 30px;
+background-color: #ddd;
+border-radius: 15px;
+overflow: hidden;
+border: 2px solid #333;
+}
+
+#honger, #verdacht {
+    height: 100%;
+    transition: width 0.5s;
+}
+
+#honger{
+background-color: #e29b17;
+}
+
+#verdacht {
+background-color: #21af14;
 }

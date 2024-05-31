@@ -1,4 +1,4 @@
-/*
+/* VOLGORDE
 constanten
 let
 functions
@@ -6,21 +6,45 @@ event listeners
 EN VOEG COMMENTS TOE
 */
 
+/* WAT MOET ER NOG IN?
+- scorebord
+- mystery drink
+- freeze als je hebt verloren
+- foreachloop?
+- array?
+*/
+
 /*CONSTANTEN*/
+
 const steelKnop = document.querySelector ('#stelen');
 const mysteryKnop = document.querySelector ('#mysterydrink');
-const knopje = document.querySelector("#sound"); /* Selecteert het knopje*/ /*bron: Tamara en Demi*/
+const knopje = document.querySelector("#sound"); /* Selecteert het knopje*/
+const hongerBar = document.querySelector("#honger");
+const verdachtBar = document.querySelector("#verdacht")
+const banaanKnop = document.querySelector ('#banaan');
+const tekstveranderen = document.querySelector("#tekst");
+const instructietekstveranderen = document.querySelector("#instructietekst");
+const veranderaap = document.querySelector ("#basicaap");
+const audioKnop = new Audio("sound/junglethememario.mp3");
+const schreeuwen = new Audio ("sound/monkeyscreaming.mp3");
+const etenGeluid = new Audio ("sound/namnamnam.mp3");
+const mysteryAap = [
+    veranderaap.src = "img/aapgroothoofd.png",
+    veranderaap.src = "img/blauweaap.png",
+    veranderaap.src = "img/rodeaap.png",
+    veranderaap.src = "img/scaryaap.png"
+]
+const bananenAantalElement = document.querySelector('#aantalbananen'); /*ChatGPT */
 
 
 /*LETS*/
-let banaanKnop = document.querySelector ('#banaan');
-let tekstveranderen = document.querySelector("#tekst");
-let veranderaap = document.querySelector ("#basicaap");
-let audioKnop = new Audio("sound/junglethememario.mp3");
-let schreeuwKnop = new Audio ("sound/monkeyscreaming.mp3");
+let honger = 0; /* bron:https://chatgpt.com/share/c4b43368-4685-40eb-94c2-ea1309da9bff belangrijkste prompt ChatGPT: hoe kan ik een health bar maken in javascript dat over tijd steeds minder wordt? ik mag geen gebruik maken van een var */
+let verdacht = 10;
+let gameOver = false
+let bananenAantal = 5;
 
 /*FUNCTIONS*/
-function audioSpelen() { /*functie om de audio af te spelen*/
+audioSpelen = () => { /*functie om de audio af te spelen*/
     audioKnop.play();
 }
 
@@ -34,14 +58,35 @@ function audioSpelen() { /*functie om de audio af te spelen*/
 }   
 
 ik weet alleen niet waarom het niet werkt */
-function eten() {
-    veranderaap.src = "img/aapmetbanaan.png";
-    tekstveranderen.textContent = "Namnamnam";
-    setTimeout(() => {
-        veranderaap.src = "img/basicaap.png";
-        tekstveranderen.textContent = "";
-    }, 2000);
-}   
+eten = () => {
+    if (bananenAantal > 0) { // Controleer of er nog bananen zijn
+        veranderaap.src = "img/aapmetbanaan.png";
+        tekstveranderen.textContent = "Namnamnam";
+        etenGeluid.play();
+        setTimeout(() => {
+            veranderaap.src = "img/basicaap.png";
+            tekstveranderen.textContent = "";
+            etenGeluid.pause();
+        }, 2000);
+
+        if (honger > 0) {
+            honger -= 60;
+            if (honger < 0) { 
+                honger = 0;
+            }
+            hongerBar.style.width = honger + '%';
+        }
+
+        bananenAantal--; // Verminder het aantal beschikbare bananen
+        bananenAantalElement.textContent = bananenAantal; // Werk het aantal bananen op het scherm bij
+    } else {
+        tekstveranderen.textContent = "Geen bananen meer!";
+        setTimeout(() => {
+            tekstveranderen.textContent = "";
+        }, 2000);
+    }
+};
+
 
 /*prompt ChatGPT: ik wil alleen dat als ik op een knop klik, dat de basicaap voor 2 seconden naar aapmetbanaan verandert, en dat hij daarna terugvernadert naar basicaap.
 let banaanstatus = true
@@ -63,18 +108,65 @@ let banaanstatus = true
 
 
 banaanKnop.addEventListener ('click', eten);*/
-function banaanStelen() { 
+banaanStelen = () => { 
     veranderaap.src = "img/aapsteeltbanaangif.gif";
     tekstveranderen.textContent = "HEHEHEEE";
-    schreeuwKnop.play();
+    schreeuwen.play();
     setTimeout(() => {
         veranderaap.src = "img/basicaap.png";
         tekstveranderen.textContent = "";
-        schreeuwKnop.pause();
+        schreeuwen.pause();
     }, 2000);
+
+    if (verdacht > 0) {
+        verdacht -= 40;
+    if (verdacht < 0) { 
+        verdacht = 0;
+    }
+    verdachtBar.style.width = verdacht + '%';
+    }
 }   
+
+const verhoogHonger = () => {
+    if (gameOver == false) {
+        if (honger < 100) {
+            honger += 1;
+            hongerBar.style.width = honger + '%';
+        } else {
+            veranderaap.src = "img/dodeaap.png"
+            instructietekstveranderen.textContent = "Helaas, je aapje is dood!"
+            gameOver = true
+    }
+    }
+};
+
+const verhoogVerdacht = () => {
+    if (gameOver == false) {
+        if (verdacht < 100) {
+            verdacht += 1;
+            verdachtBar.style.width = verdacht + '%';
+        } if (verdacht < 5) {
+            veranderaap.src = "img/verbaasdeaap.png"
+            instructietekstveranderen.textContent = "Helaas, je aapje is gearresteerd!"
+            gameOver = true
+        }
+    }
+};
+
+mysteryy = () => {
+    const randomIndex = Math.floor (Math.random() * mysteryAap.length);
+    const randomPlaatje = mysteryAap [randomIndex];
+    veranderaap.src = randomPlaatje;
+}
 
 /*EVENT LISTENERS*/
 banaanKnop.addEventListener ('click', eten);
 steelKnop.addEventListener ('click', banaanStelen);
+mysteryKnop.addEventListener ('click', mysteryy);
 knopje.addEventListener ('click', audioSpelen); /*als je klikt, wordt de functie audioSpelen gebruikt. Let op: het knopje wordt geselecteerd, niet de scheeuwKnop.*/
+
+document.addEventListener("DOMContentLoaded", () => {
+    veranderaap.src = "img/basicaap.png"; // default plaatje ingeladen
+    setInterval(verhoogHonger, 100); // verhoogt honger elke 100ms
+    setInterval(verhoogVerdacht, 350); // verhoogt verdacht elke 1000ms
+});
