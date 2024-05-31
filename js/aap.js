@@ -6,14 +6,6 @@ event listeners
 EN VOEG COMMENTS TOE
 */
 
-/* WAT MOET ER NOG IN?
-- scorebord
-- mystery drink
-- freeze als je hebt verloren
-- foreachloop?
-- array?
-*/
-
 /*CONSTANTEN*/
 
 const steelKnop = document.querySelector ('#stelen'); /* bron img: https://cdn0.iconfinder.com/data/icons/monkey-2/382/monkey-011-512.png */

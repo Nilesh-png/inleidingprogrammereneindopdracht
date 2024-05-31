@@ -6,6 +6,17 @@
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+body {
+    background-image: url('../img/jungleachtergrond.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
 img {
     height: 100px;
     width: 100px;
@@ -27,17 +38,6 @@ button {
     margin-right: 30px;
     border-radius: 10px;
     border: 5px solid;
-}
-
-body {
-    background-image: url('../img/jungleachtergrond.jpg');
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
 }
 
 h1 {
