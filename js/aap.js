@@ -25,22 +25,22 @@ const banaanKnop = document.querySelector ('#banaan');
 const tekstveranderen = document.querySelector("#tekst");
 const instructietekstveranderen = document.querySelector("#instructietekst");
 const veranderaap = document.querySelector ("#basicaap");
-const audioKnop = new Audio("sound/junglethememario.mp3");
+const audioKnop = new Audio("sound/junglethememario.mp3"); /* Hulp van Tamara en Demi */
 const schreeuwen = new Audio ("sound/monkeyscreaming.mp3");
 const etenGeluid = new Audio ("sound/namnamnam.mp3");
-const mysteryAap = [
+const mysteryAap = [ /* Hulp van Mart en Alexi */
     veranderaap.src = "img/aapgroothoofd.png",
     veranderaap.src = "img/blauweaap.png",
     veranderaap.src = "img/rodeaap.png",
     veranderaap.src = "img/scaryaap.png"
 ]
-const bananenAantalElement = document.querySelector('#aantalbananen'); /*ChatGPT */
+const bananenAantalElement = document.querySelector('#aantalbananen'); /*bron: https://chatgpt.com/share/45e9d53f-6bc7-4758-bec2-72b2417751f6 belangrijkste prompt ChatGPT:hoe kan je een limiet instellen van het aantal bananen dat je hebt (banaanKnop)? */
 
 
 /*LETS*/
 let honger = 0; /* bron:https://chatgpt.com/share/c4b43368-4685-40eb-94c2-ea1309da9bff belangrijkste prompt ChatGPT: hoe kan ik een health bar maken in javascript dat over tijd steeds minder wordt? ik mag geen gebruik maken van een var */
 let verdacht = 10;
-let gameOver = false
+let gameOver = false /* Hulp van Mart */
 let bananenAantal = 5;
 
 /*FUNCTIONS*/
@@ -80,7 +80,7 @@ eten = () => {
         bananenAantal--; // Verminder het aantal beschikbare bananen
         bananenAantalElement.textContent = bananenAantal; // Werk het aantal bananen op het scherm bij
     } else {
-        tekstveranderen.textContent = "Geen bananen meer!";
+        tekstveranderen.textContent = "Je hebt geen bananen meer!";
         setTimeout(() => {
             tekstveranderen.textContent = "";
         }, 2000);
@@ -120,6 +120,8 @@ banaanStelen = () => {
 
     if (verdacht > 0) {
         verdacht -= 40;
+        bananenAantal += 2;
+        bananenAantalElement.textContent = bananenAantal; // Werk het aantal bananen op het scherm bij
     if (verdacht < 0) { 
         verdacht = 0;
     }
